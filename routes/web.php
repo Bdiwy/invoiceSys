@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\SectionsController;
+use App\Models\invoices;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +23,14 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Auth::routes();
+Route::resource('ListOfInvoices', InvoicesController::class);
+Route::resource('add-sections', SectionsController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/signin', [AdminController::class,'signin'])->name('signin');
 
 Route::get('/{page}', [AdminController::class,'index']);
+
+Route::get('/reset', [AdminController::class,'resetpass'])->name('password.reset');
+
+

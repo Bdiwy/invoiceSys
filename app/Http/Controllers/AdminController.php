@@ -30,5 +30,10 @@ class AdminController extends Controller
         return view('signin');
     }
 
+
+    public function resetpass(){
+        return view('reset');
+        
+    }
     
 }
