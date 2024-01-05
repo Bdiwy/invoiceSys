@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\sections;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ValidatedRequest;
+use App\Http\Requests\SecValidatedRequest;
 
 class SectionsController extends Controller
 {
@@ -16,7 +17,8 @@ class SectionsController extends Controller
      */
     public function index()
     {
-        return response(view('sections.add-sections'));
+        $data=sections::get();
+        return response(view('sections.add-sections',['data'=>$data]));
 
     }
 
@@ -25,16 +27,16 @@ class SectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ValidatedRequest $request)
-    {
+    public function create(SecValidatedRequest $request)
+    {        
+            sections::create([
+                'section_name' => $request->section_name,
+                'description' => $request->description,
+                'Created_by' => (Auth::user()->name),
+            ]);
+    
         
-        sections::create([
-            'section_name' => $request->section_name,
-            'description' => $request->description,
-            'Created_by' => (Auth::user()->name),
-        ]);
-
-        return redirect()->back();
+        return redirect('/add-sections')->with('message', 'the section added successfully!');
     }
 
     /**
@@ -54,9 +56,11 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function show(sections $sections)
+    public function show()
     {
-        //
+        $sections=sections::all();
+        return response(view('invoices.invo-list',compact('sections')));
+
     }
 
     /**
@@ -65,21 +69,38 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function edit(sections $sections)
+    public function edit(Request $request)
     {
-        //
+        
+        
+        $id=$request->id;
+        $Created_by=$request->Created_by;
+        $section_name=$request->section_name;
+        $description=$request->description;
+        
+        return response( view('sections.update-sec',[
+            'id' => $id,
+            'Created_by'=>$Created_by,
+            'section_name'=>$section_name,
+            'description'=>$description]));
+
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\sections  $sections
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, sections $sections)
+    
+    public function update(Request $request,$id)
     {
-        //
+        if(empty(auth()->id())) {
+            abort(403, 'Unauthorized Action');
+        }
+    
+        sections::where('id',$request->id)
+        ->update([
+            'section_name'=>$request->section_name,
+            'description'=>$request->description,
+        ]);
+        return redirect('add-sections')->with('edit', 'Section updated successfully!');
+
     }
 
     /**
@@ -88,8 +109,16 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sections $sections)
+    public function destroy($id)
     {
-        //
+        $seecId= $id;
+        $find= sections::find($seecId);
+        if($find)
+            {$find -> delete();
+                return redirect('/add-sections')->with('delete','deleted successfuly ');
+            }else{
+            return redirect('/add-sections')->with('delete','error nothing deleted !');
+        
+            }
     }
 }

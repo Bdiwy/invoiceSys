@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidatedRequest extends FormRequest
+class SecValidatedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ValidatedRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,9 @@ class ValidatedRequest extends FormRequest
     {
         return [
             'section_name' => 'required|unique:sections|max:255',
-            'description' =>'max:255',
+            'description' =>'required|max:255',
+            // 'product_name' =>'required|max:255',
+            // 'section_id' =>'required',
 
         ];
     }

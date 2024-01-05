@@ -124,7 +124,7 @@
 			<!-- Container closed -->
 		</div>
 		<!-- main-content closed -->
-
+		
 		<!--Modal-->
 		<div class="modal" id="modalQuill">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
