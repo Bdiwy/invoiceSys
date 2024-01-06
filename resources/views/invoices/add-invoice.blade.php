@@ -44,7 +44,7 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data"
+                    <form action="" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
@@ -253,7 +253,7 @@
 
             if (typeof Amount_Commission === 'undefined' || !Amount_Commission) {
 
-                alert('يرجي ادخال مبلغ العمولة ');
+                alert('Please enter the commission amount');
 
             } else {
                 var intResults = Amount_Commission2 * Rate_VAT / 100;

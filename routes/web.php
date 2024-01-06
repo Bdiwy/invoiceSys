@@ -33,7 +33,6 @@ use App\Models\invoices;
     Route::get('/destroy/{id}', [SectionsController::class,'destroy']);
     Route::post('/update-sec', [SectionsController::class,'edit'])->name('edit');
     Route::post('/update/{id}', [SectionsController::class,'update']);
-    Route::get('/add-invoic', [SectionsController::class,'show']);
     
     
     

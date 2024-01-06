@@ -58,8 +58,6 @@ class SectionsController extends Controller
      */
     public function show()
     {
-        $sections=sections::all();
-        return response(view('invoices.invo-list',compact('sections')));
 
     }
 
