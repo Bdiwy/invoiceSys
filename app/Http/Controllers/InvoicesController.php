@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\invoices;
 use App\Models\sections;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoicesController extends Controller
 {
@@ -89,7 +90,7 @@ class InvoicesController extends Controller
 
     public function getproducts($id)
     {
-        $products = DB::table("products")->where("section_id", $id)->pluck("Product_name", "id");
+        $products = DB::table("add_prods")->where("section_id", $id)->pluck("Product_name", "id");
         return json_encode($products);
     }
 
