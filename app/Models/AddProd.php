@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AddProd extends Model
 {
     use HasFactory;
-protected $table="add_prods";
+protected $table="products";
     protected $guarded =[];
 
     public function section(){

@@ -44,6 +44,7 @@ use App\Models\invoices;
 
 
 Route::get('/{page}', [AdminController::class,'index']);
+Route::get('/section/{id}', [InvoicesController::class,'getproducts']);
 
 Route::get('/reset', [AdminController::class,'resetpass'])->name('password.reset');
 

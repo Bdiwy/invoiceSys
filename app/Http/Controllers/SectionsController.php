@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\sections;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\SecValidatedRequest;
 
@@ -119,4 +120,6 @@ class SectionsController extends Controller
         
             }
     }
+
+
 }

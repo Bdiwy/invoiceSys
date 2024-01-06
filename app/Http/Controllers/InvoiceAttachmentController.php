@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoices;
-use App\Models\sections;
+use App\Models\invoice_attachment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class InvoicesController extends Controller
+class InvoiceAttachmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class InvoicesController extends Controller
      */
     public function index()
     {
-        return response(view('invoices.invo-list'));
+        //
     }
 
     /**
@@ -26,9 +24,7 @@ class InvoicesController extends Controller
      */
     public function create()
     {
-        $sections=sections::all();
-        return response(view('invoices.add-invoice',compact('sections')));
-
+        //
     }
 
     /**
@@ -45,10 +41,10 @@ class InvoicesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\invoice_attachment  $invoice_attachment
      * @return \Illuminate\Http\Response
      */
-    public function show(invoices $invoices)
+    public function show(invoice_attachment $invoice_attachment)
     {
         //
     }
@@ -56,10 +52,10 @@ class InvoicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\invoice_attachment  $invoice_attachment
      * @return \Illuminate\Http\Response
      */
-    public function edit(invoices $invoices)
+    public function edit(invoice_attachment $invoice_attachment)
     {
         //
     }
@@ -68,10 +64,10 @@ class InvoicesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\invoice_attachment  $invoice_attachment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invoices $invoices)
+    public function update(Request $request, invoice_attachment $invoice_attachment)
     {
         //
     }
@@ -79,20 +75,11 @@ class InvoicesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\invoice_attachment  $invoice_attachment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(invoices $invoices)
+    public function destroy(invoice_attachment $invoice_attachment)
     {
         //
     }
-
-
-    public function getproducts($id)
-    {
-        $products = DB::table("add_prods")->where("section_id", $id)->pluck("product_name", "id");
-        return json_encode($products);
-    }
-
-
 }
