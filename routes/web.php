@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AddProdController;
+use App\Models\AddProd;
+use App\Models\invoices;
+use App\Models\invoices_details;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AddProdController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
-use App\Models\AddProd;
-use App\Models\invoices;
+use App\Http\Controllers\InvoicesDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +49,11 @@ Route::get('/{page}', [AdminController::class,'index']);
 Route::get('/section/{id}', [InvoicesController::class,'getproducts']);
 
 Route::get('/reset', [AdminController::class,'resetpass'])->name('password.reset');
+Route::get('/InvoicesDetails/{id}', [InvoicesDetailsController::class,'edit']);
 
+
+Route::post('delete_file', [InvoicesDetailsController::class,'destroy'])->name('delete_file');
+
+Route::get('download/{invoice_number}/{file_name}', [InvoicesDetailsController::class,'get_file']);
+
+Route::get('View_file/{invoice_number}/{file_name}', [InvoicesDetailsController::class,'open_file']);
