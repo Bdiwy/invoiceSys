@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\invoices;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class sections extends Model
 {
@@ -16,6 +17,9 @@ class sections extends Model
         'Created_by',
     ];
 
-    
+    public function invoice()
+    {
+        return $this->belongsTo(invoices::class);
+    }
 
 }

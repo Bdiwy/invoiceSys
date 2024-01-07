@@ -52,8 +52,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة
-                    الفواتير</span>
+                <h4 class="content-title mb-0 my-auto">INVOICES</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ LIST OF
+                    THE INVOICES</span>
             </div>
         </div>
 
@@ -62,11 +62,33 @@
 @endsection
 @section('content')
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if (session()->has('Add'))
+    <script>
+        window.onload = function() {
+            notif({
+                msg: "The invoice has been successfully added",
+                type: "success"
+            })
+        }
+
+    </script>
+    @endif
+
     @if (session()->has('delete_invoice'))
         <script>
             window.onload = function() {
                 notif({
-                    msg: "تم حذف الفاتورة بنجاح",
+                    msg: "The invoice has been successfully deleted",
                     type: "success"
                 })
             }
@@ -79,7 +101,7 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: "تم تحديث حالة الدفع بنجاح",
+                    msg: "Payment status has been updated successfully",
                     type: "success"
                 })
             }
@@ -91,7 +113,7 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: "تم استعادة الفاتورة بنجاح",
+                    msg: "The invoice has been successfully retrieved",
                     type: "success"
                 })
             }
@@ -111,67 +133,70 @@
                                 class="fas fa-plus"></i>&nbsp; Add invoice</a>
                     @endcan
 
-                    @can('تصدير EXCEL')
+                    @can('EXPORT EXCEL')
                         <a class="modal-effect btn btn-sm btn-primary" href=" url('export_invoices') "
-                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
+                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;EXPORT EXCEL</a>
                     @endcan
 
                 </div>
                 <div class="card-body">
+            
                     <div class="table-responsive">
+                        <div class="btn-icon-list" >
+                            <a  class="btn btn-success btn-icon" href="ListOfInvoices/create" aria-label="New Invoice"><i class="typcn typcn-document-add"></i></a>
+                        </div>
                         <table id="example1" class="table key-buttons text-md-nowrap" data-page-length='50'style="text-align: center">
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
-                                    <th class="border-bottom-0">رقم الفاتورة</th>
-                                    <th class="border-bottom-0">تاريخ القاتورة</th>
-                                    <th class="border-bottom-0">تاريخ الاستحقاق</th>
-                                    <th class="border-bottom-0">المنتج</th>
-                                    <th class="border-bottom-0">القسم</th>
-                                    <th class="border-bottom-0">الخصم</th>
-                                    <th class="border-bottom-0">نسبة الضريبة</th>
-                                    <th class="border-bottom-0">قيمة الضريبة</th>
-                                    <th class="border-bottom-0">الاجمالي</th>
-                                    <th class="border-bottom-0">الحالة</th>
-                                    <th class="border-bottom-0">ملاحظات</th>
-                                    <th class="border-bottom-0">العمليات</th>
+                                    <th class="border-bottom-0">INVOICE NUMBER</th>
+                                    <th class="border-bottom-0">INVOICE DATE</th>
+                                    <th class="border-bottom-0">DUE DATE</th>
+                                    <th class="border-bottom-0">PRODUCT</th>
+                                    <th class="border-bottom-0">SECTION</th>
+                                    <th class="border-bottom-0">DISCOUNT</th>
+                                    <th class="border-bottom-0">TAX RATE</th>
+                                    <th class="border-bottom-0">TAX VALUE</th>
+                                    <th class="border-bottom-0">TOTAL</th>
+                                    <th class="border-bottom-0">STATUS</th>
+                                    <th class="border-bottom-0">NOTES</th>
+                                    <th class="border-bottom-0">OPERATIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
                                 $i = 0;
                                 @endphp
-                                {{-- @foreach ($invoices as $invoice) --}}
+                                @foreach ($invoice as $invoice)
                                     @php
                                     $i++
                                     @endphp
                                     <tr>
-                                        <td>$i </td>
-                                        <td> $invoice->invoice_number </td>
-                                        <td> $invoice->invoice_Date </td>
-                                        <td> $invoice->Due_date </td>
-                                        <td> $invoice->product </td>
+                                        
+                                        <td>{{$i}} </td>
+                                        <td> {{$invoice->invoice_number}}</td>
+                                        <td> {{$invoice->invoice_Date}}  </td>
+                                        <td> {{$invoice->Due_date}}      </td>
+                                        <td> {{$invoice->product}}       </td>
                                         <td><a
-                                                href=" url('InvoicesDetails') / $invoice->id }}"> $invoice->section->section_name </a>
+                                                href="InvoicesDetails/{{$invoice->id}} "> {{$invoice->section->section_name }}</a>
                                         </td>
-                                        <td> $invoice->Discount </td>
-                                        <td> $invoice->Rate_VAT </td>
-                                        <td> $invoice->Value_VAT </td>
-                                        <td> $invoice->Total </td>
+                                        <td> {{$invoice->Discount}} </td>
+                                        <td> {{$invoice->Rate_VAT}} </td>
+                                        <td> {{$invoice->Value_VAT}} </td>
+                                        <td>{{ $invoice->Total }}</td>
                                         <td>
-                                            {{-- @if ($invoice->Value_Status == 1)
-                                                <span class="text-success"> $invoice->Status </span>
+                                            @if ($invoice->Value_Status == 1)
+                                                <span class="text-success"> {{$invoice->Status}} </span>
                                             @elseif($invoice->Value_Status == 2)
-                                                <span class="text-danger"> $invoice->Status </span>
+                                                <span class="text-danger"> {{$invoice->Status}} </span>
                                             @else
-                                                <span class="text-warning"> $invoice->Status </span>
+                                                <span class="text-warning"> {{$invoice->Status}} </span>
 
-                                            @endif --}}
-                                            <span class="text-warning"> $invoice->Status </span>
-
+                                            @endif
                                         </td>
 
-                                        <td> $invoice->note </td>
+                                        <td> {{$invoice->note}} </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
@@ -217,7 +242,7 @@
 
                                         </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
 
                             </tbody>
                         </table>
