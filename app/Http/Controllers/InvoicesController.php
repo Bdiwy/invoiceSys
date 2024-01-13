@@ -104,10 +104,10 @@ class InvoicesController extends Controller
      * @param  \App\Models\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function show(invoices $invoices)
-    {
-        // return $invoices ;
-    }
+    // public function show(invoices $invoices)
+    // {
+    //     // return $invoices ;
+    // }
 
     /**
      * Show the form for editing the specified resource.
