@@ -170,7 +170,7 @@ class InvoicesController extends Controller
             Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);    }
 
         }
-        $invoices->forceDelete($invoices);
+        $invoices->delete($invoices);
 
         return redirect('ListOfInvoices')->with('delete_invoice', 'The invoice has been deleted successfully');
 
