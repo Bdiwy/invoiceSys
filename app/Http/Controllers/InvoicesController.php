@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\invoices;
-use App\Models\invoices_details;
-use App\Models\invoice_attachment;
 use App\Models\sections;
 use Illuminate\Http\Request;
+use App\Models\invoices_details;
+use App\Models\invoice_attachment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
 {
@@ -105,7 +106,7 @@ class InvoicesController extends Controller
      */
     public function show(invoices $invoices)
     {
-        //
+        // return $invoices ;
     }
 
     /**
@@ -114,21 +115,37 @@ class InvoicesController extends Controller
      * @param  \App\Models\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function edit(invoices $invoices)
+    public function edit($id)
     {
-        //
+
+        $invoices = invoices::where('id', $id)->first();
+        $sections = sections::all();
+        return response(view('invoices.edit_invoice', compact('sections', 'invoices'))) ;    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\invoices  $invoices
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, invoices $invoices)
+
+    public function update(Request $request)
     {
-        //
+        
+        $invoices = invoices::findOrFail($request->invoice_id);
+        $invoices->update([
+            'invoice_number' => $request->invoice_number,
+            'invoice_Date' => $request->invoice_Date,
+            'Due_date' => $request->Due_date,
+            'product' => $request->product,
+            'section_id' => $request->Section,
+            'Amount_collection' => $request->Amount_collection,
+            'Amount_Commission' => $request->Amount_Commission,
+            'Discount' => $request->Discount,
+            'Value_VAT' => $request->Value_VAT,
+            'Rate_VAT' => $request->Rate_VAT,
+            'Total' => $request->Total,
+            'note' => $request->note,
+        ]);
+
+
+        return redirect('ListOfInvoices')->with('update', 'The invoice has been edited successfully');
+
     }
 
     /**
@@ -137,12 +154,28 @@ class InvoicesController extends Controller
      * @param  \App\Models\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function destroy(invoices $invoices)
+    public function destroy(Request $request)
     {
-        //
+        // dd($request->invoice_id);
+        $id = $request->invoice_id;
+        $invoices = invoices::where('id', $id)->first();
+        $Details = invoice_attachment::where('invoice_id', $id)->first();
+
+        $id_page =$request->id_page;
+
+        if (!$id_page==2) {
+
+        if (!empty($Details->invoice_number)) {
+
+            Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);    }
+
+        }
+        $invoices->forceDelete($invoices);
+
+        return redirect('ListOfInvoices')->with('delete_invoice', 'The invoice has been deleted successfully');
+
+        
     }
-
-
     public function getproducts($id)
     {
         $products = DB::table("products")->where("section_id", $id)->pluck("product_name", "id");

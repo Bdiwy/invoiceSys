@@ -201,7 +201,7 @@
                                         <div class="tab-pane" id="tab6">
                                             <!--المرفقات-->
                                             <div class="card card-statistics">
-                                                @can('اضافة مرفق')
+                                                {{-- @can('اضافة مرفق') --}}
                                                     <div class="card-body">
                                                         <p class="text-danger">*Attachment format   pdf, jpeg ,.jpg , png </p>
                                                         <h5 class="card-title">Add attachments</h5>
@@ -222,7 +222,7 @@
                                                                 name="uploadedFile">Confirm</button>
                                                         </form>
                                                     </div>
-                                                @endcan
+                                                {{-- @endcan --}}
                                                 <br>
 
                                                 <div class="table-responsive mt-15">

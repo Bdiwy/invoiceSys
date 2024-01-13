@@ -96,6 +96,17 @@
         </script>
     @endif
 
+    @if (session()->has('update'))
+    <script>
+        window.onload = function() {
+            notif({
+                msg: "Invoice has been updated successfully",
+                type: "success"
+            })
+        }
+
+    </script>
+    @endif
 
     @if (session()->has('Status_Update'))
         <script>
@@ -203,18 +214,18 @@
                                                     class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
                                                     type="button">operations<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
-                                                    @can('edit invoice')
+                                                    {{-- @can('edit invoice') --}}
                                                         <a class="dropdown-item"
-                                                            href="  url('edit_invoice') / $invoice->id ">edit
+                                                            href=" {{ url('edit_invoice')}}/{{$invoice->id}} ">edit
                                                             Bill</a>
-                                                    @endcan
+                                                    {{-- @endcan --}}
 
-                                                    @can('delete invoice')
-                                                        <a class="dropdown-item" href="#" data-invoice_id="$invoice->id "
+                                                    {{-- @can('delete invoice') --}}
+                                                        <a class="dropdown-item" href="#" data-invoice_id="{{$invoice->id}} "
                                                             data-toggle="modal" data-target="#delete_invoice"><i
                                                                 class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;delete
                                                                 Bill</a>
-                                                    @endcan
+                                                    {{-- @endcan --}}
 
                                                     @can('Change of payment status')
                                                         <a class="dropdown-item"
@@ -259,27 +270,26 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete invoice</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">حذف الفاتورة</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <form action="" method="post">
+                    <form action="{{ route('ListOfInvoices.destroy', 'test') }}" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                 </div>
                 <div class="modal-body">
-                    are sure of the deleting process ?
+                    هل انت متاكد من عملية الحذف ؟
                     <input type="hidden" name="invoice_id" id="invoice_id" value="">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    <button type="submit" class="btn btn-danger">تاكيد</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
-
 
     <!-- ارشيف الفاتورة -->
     <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -348,6 +358,7 @@
             var modal = $(this)
             modal.find('.modal-body #invoice_id').val(invoice_id);
         })
+
 
     </script>
 

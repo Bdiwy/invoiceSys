@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AddProdController;
+use App\Http\Controllers\InvoiceAttachmentController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\InvoicesDetailsController;
@@ -36,11 +37,14 @@ use App\Http\Controllers\InvoicesDetailsController;
     Route::post('/update-sec', [SectionsController::class,'edit'])->name('edit');
     Route::post('/update/{id}', [SectionsController::class,'update']);
     
-    
-    
+
+    Route::resource('InvoiceAttachments', InvoiceAttachmentController::class);
+
     Route::post('/add-sections/create', [SectionsController::class,'create'])->name('create.section');
     
 
+    Route::get('/edit_invoice/{id}', [InvoicesController::class,'edit']);
+    Route::post('invoices/update', [InvoicesController::class,'update']);
 
 
 
