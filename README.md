@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to invoiceSys 👋</h1>
 <p>
-  <a href="https://twitter.com/ahmed\_bdiwy\_" target="_blank">
-    <img alt="Twitter: ahmed\_bdiwy\_" src="https://img.shields.io/twitter/follow/ahmed\_bdiwy\_.svg?style=social" />
+  <a href="https://twitter.com/ahmed_bdiwy_" target="_blank">
+    <img alt="Twitter: ahmed_bdiwy_" src="https://img.shields.io/twitter/follow/ahmed\_bdiwy\_.svg?style=social" />
   </a>
 </p>
 
