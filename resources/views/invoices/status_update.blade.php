@@ -138,8 +138,8 @@
                                 <label for="exampleTextarea">حالة الدفع</label>
                                 <select class="form-control" id="Status" name="Status" required>
                                     <option selected="true" disabled="disabled">-- حدد حالة الدفع --</option>
-                                    <option value="مدفوعة">مدفوعة</option>
-                                    <option value="مدفوعة جزئيا">مدفوعة جزئيا</option>
+                                    <option value="paid">paid</option>
+                                    <option value="Partially Paid">Partially Paid</option>
                                 </select>
                             </div>
 

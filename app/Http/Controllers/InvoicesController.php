@@ -187,12 +187,12 @@ class InvoicesController extends Controller
         $invoices = invoices::where('id', $id)->first();
         return view('invoices.status_update', compact('invoices'));
     }
-    
+
     public function Status_Update($id, Request $request)
     {
         $invoices = invoices::findOrFail($id);
 
-        if ($request->Status === 'Paid') {
+        if ($request->Status === 'paid') {
 
             $invoices->update([
                 'Value_Status' => 1,
