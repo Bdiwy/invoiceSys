@@ -227,14 +227,12 @@
                                                                 Bill</a>
                                                     {{-- @endcan --}}
 
-                                                    @can('Change of payment status')
+                                                    {{-- @can('Change of payment status') --}}
                                                         <a class="dropdown-item"
-                                                            href=" URL::route('Status_show', [@invoice->id]) "><i
+                                                            href=" {{URL::route('Status_show', [@invoice->id])}} "><i
                                                                 class=" text-success fas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                            condition
-                                                            paying off</a>
-                                                    @endcan
+                                                                fa-money-bill"></i>&nbsp;&nbsp;Change of payment status</a>
+                                                    {{-- @endcan --}}
 
                                                     @can('Archive the invoice')
                                                         <a class="dropdown-item" href="#" data-invoice_id="$invoice->id"
