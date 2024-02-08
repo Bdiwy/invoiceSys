@@ -64,4 +64,5 @@ Route::get('View_file/{invoice_number}/{file_name}', [InvoicesDetailsController:
 
 
 
-Route::post('/Status_Update/{id}', 'InvoicesController@Status_Update')->name('Status_Update');
+Route::post('/Status_Update/{id}',  [InvoicesController::class,'Status_Update'])->name('Status_Update');
+Route::get('/Status_show/{id}',  [InvoicesController::class,'show'])->name('Status_show');
