@@ -232,7 +232,7 @@ class InvoicesController extends Controller
             ]);
         }
         session()->flash('Status_Update');
-        return redirect('/invoices');
+        return redirect('/ListOfInvoices');
 
     }
 
