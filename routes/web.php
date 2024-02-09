@@ -11,6 +11,8 @@ use App\Http\Controllers\InvoiceAttachmentController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Middleware\VerifyCsrfToken;
+use PHPUnit\Util\Json;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +68,9 @@ Route::get('View_file/{invoice_number}/{file_name}', [InvoicesDetailsController:
 
 Route::post('/Status_Update/{id}',  [InvoicesController::class,'Status_Update'])->name('Status_Update');
 Route::get('/Status_show/{id}',  [InvoicesController::class,'show'])->name('Status_show');
+
+
+
+Route::delete('/testest', function (){
+    return 'asd';
+})->withoutMiddleware(VerifyCsrfToken::class);
