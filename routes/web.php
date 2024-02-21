@@ -43,6 +43,7 @@ use PHPUnit\Util\Json;
     Route::resource('InvoiceAttachments', InvoiceAttachmentController::class);
 
     Route::post('/add-sections/create', [SectionsController::class,'create'])->name('create.section');
+    Route::get('/data', [SectionsController::class,'data']);
     
 
     Route::get('/edit_invoice/{id}', [InvoicesController::class,'edit']);
@@ -74,3 +75,8 @@ Route::get('/Status_show/{id}',  [InvoicesController::class,'show'])->name('Stat
 Route::delete('/testest', function (){
     return 'asd';
 })->withoutMiddleware(VerifyCsrfToken::class);
+
+
+Route::get('/invoice_paid',[InvoicesController::class,'Invoice_paid']);
+Route::get('/Invoice_unpaid',[InvoicesController::class,'Invoice_unpaid']);
+Route::get('/invoice_paid',[InvoicesController::class,'Invoice_partial']);

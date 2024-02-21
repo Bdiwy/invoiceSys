@@ -40,6 +40,14 @@ class SectionsController extends Controller
         return redirect('/add-sections')->with('message', 'the section added successfully!');
     }
 
+    public function testcreate(Request $request)
+    {        
+            sections::create($request->all());
+    }
+    public function data()
+    {        $data = sections::all() ;
+            return $data->json();
+    }
     /**
      * Store a newly created resource in storage.
      *
